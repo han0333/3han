@@ -31,6 +31,7 @@
                 ';
             }
             ?>
+            </div>
             <div class="m-5 text-right w-100">
                 <h1 class="h1">合計 ¥2,250</h1>
             </div>

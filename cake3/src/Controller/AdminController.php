@@ -2,11 +2,14 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
 
 class AdminController extends AppController{
     
     public function initialize(){
         $this->viewBuilder()->setLayout('');
+        $url = Router::url('/', true);
+        $this->set("url", $url);
          
     }
 

@@ -1,0 +1,51 @@
+#logo{
+    padding:0px 15px;
+}
+.w-100{
+    width:100%!important;
+}
+.my-5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.my-10{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.my-30 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.mx-auto {
+    margin-left: auto!important;
+    margin-right: auto!important;
+}
+img{
+    width:100%!important;
+}
+#fab{
+    position: fixed!important;
+    right:50px;
+    bottom:50px;
+}
+
+#login{
+    width:50%!important;
+}
+
+@media (max-width:450px) {
+    #fab {
+        right: 30px;
+        bottom: 30px;
+    }
+    #login {
+        width: 100% !important;
+    }
+    #login h4{
+        font-size: 170%;
+    }
+
+
+}

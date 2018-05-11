@@ -1,39 +1,34 @@
-<!doctype html>
-<html lang="ja">
+<div class="row mx-auto">
+      <form class="col s12" action="<?= $url_c ?>/reset" method="post">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <div class="row">
+          <p>
+              リセットメールを送信します。
+          </p>
+          <div class="input-field col s12">
+            <input type="text" data-length="16" name="user_mail" require>
+            <label for="input_text">登録メールアドレスを入力してください。</label>
+          </div>
+        </div>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
+        <div class="row">
+            <button class="<?= $btn_class1 ?>" type="submit">リセットメールを送る</button><br>
+            <a class="<?= $btn_class1 ?>" href="<?= $url_c ?>/index">ログイン画面に戻る</a>
+        </div>
 
-    <title>パスワードリセット</title>
-</head>
+      </form>
+</div>
 
-<body>
-    <div class="container">
-        <h1 class="h1 text-center m-5">パスワードリセット</h1>
-        <form>
-            <p>
-                パスワードをリセットするメールを送りますので<br>
-                メールアドレスを入力してください。
-            </p>
-            <div class="form-group">
-                <label for="exampleInputEmail1">登録メールアドレス</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="sanmple@sample.com">
-            </div>
-
-            <br>
-            <br>
-            <button type="submit" class="btn btn-primary btn-lg btn-block">リセットメールを送る</button>
-            <a class="btn btn-lg btn-primary btn-block" href="http://0.0.0.0/cake3/User/">ログインページに戻る</a>
-
-        </form>
-    </div>
-</body>
-
-</html>
-
+<script>
+            var $toastContent = $('<span>メールを送信しました。</span></span>').add($('<button class="btn-flat toast-action">Undo</button>'));
+            //読み込み時実行
+			$(document).ready(function(){
+                <?php
+                if($this->request->is('post')){
+                ?>
+                    Materialize.toast($toastContent, 1000);
+                    
+                <?php } ?>
+                
+            });
+</script>

@@ -1,54 +1,51 @@
-<!doctype html>
-<html lang="ja">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
-
-    <title>新規登録</title>
-</head>
-
-<body>
-<div class="container">
-    <h1 class="h1 text-center m-5">新規登録</h1>
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">名前</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="山田　太郎">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">ID</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="hogehoge">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">パスワード</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">メールアドレス</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="sanmple@sample.com">
+<div class="row mx-auto">
+      <form class="col s12" action="<?= $url_c ?>/register" method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" data-length="16" name="user_name" require>
+            <label for="input_text">名前を入力してください。</label>
+          </div>
         </div>
 
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">個人情報取り扱いに同意する</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" data-length="16" name="user_mail" require>
+            <label for="input_text">メールアドレスを入力してください。</label>
+          </div>
         </div>
-        <a href="">
-            <small>プライバシーポリシー</small>
-        </a>
-        <br>
-        <br>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">登録</button>
-        <a class="btn btn-lg btn-primary btn-block" href="http://0.0.0.0/cake3/User/">ログインページに戻る</a>
 
-    </form>
-    </div>
-</body>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" data-length="16" name="user_id" require>
+            <label for="input_text">IDを入力してください。</label>
+          </div>
+        </div>
 
-</html>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="password" data-length="16" name="user_password" require>
+            <label for="input_text">パスワードを入力してください。</label>
+          </div>
+        </div>
 
+        <div class="row">
+            <button class="<?= $btn_class1 ?>" type="submit">登録する</button><br>
+            <a class="<?= $btn_class1 ?>" href="<?= $url_c ?>/index">ログイン画面に戻る</a>
+        </div>
+
+      </form>
+</div>
+
+<script>
+            var $toastContent = $('<span>登録に成功しました。</span></span>').add($('<button class="btn-flat toast-action">Undo</button>'));
+            //読み込み時実行
+			$(document).ready(function(){
+                <?php
+                if($this->request->is('post')){
+                ?>
+                    Materialize.toast($toastContent, 1000);
+                    
+                <?php } ?>
+                
+            });
+</script>

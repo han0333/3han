@@ -1,33 +1,21 @@
-<h1 class="h1 text-center">店舗一覧</h1>
-        <div class="row mt-5">
+        <div class="row">
             <?php
-            for($i=0;$i<3;$i++){
+            for($i=0;$i<8;$i++){
             echo '
-            <div class="col-md-4">
+            <div class="col s12 m4">
                 <div class="card">
-                    <img class="card-img-top" src="http://0.0.0.0/cake3/img/sample.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">本山弁当屋さん</h5>
-                        <p class="card-text">毎週火曜休み</p>
-                        <a href="http://0.0.0.0/cake3/User/bento" class="btn btn-primary">弁当一覧</a>
+                    <div class="card-image">
+                    <img src="'.$url.'img/sample.jpg">
                     </div>
-                </div>
-            </div>
-            ';
-            }
-            ?>
-        </div>
-        <div class="row mt-5">
-            <?php
-            for($i=0;$i<3;$i++){
-            echo '
-            <div class="col-md-4">
-                <div class="card">
-                    <img class="card-img-top" src="http://0.0.0.0/cake3/img/sample.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">本山弁当屋さん</h5>
-                        <p class="card-text">毎週火曜休み</p>
-                        <a href="http://0.0.0.0/cake3/User/bento" class="btn btn-primary">弁当一覧</a>
+                    <div class="card-content">
+                    <span class="card-title">本山弁当屋さん</span>
+                    <p>
+                    毎週火曜日、水曜日休み<br>
+                    平均価格:¥320
+                    </p>
+                    </div>
+                    <div class="card-action">
+                    <a href="'.$url_c.'/bento">弁当一覧</a>
                     </div>
                 </div>
             </div>
