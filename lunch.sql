@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E10 日 07:58
+-- Generation Time: 2018 年 5 朁E11 日 04:48
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -63,8 +63,7 @@ CREATE TABLE `dates` (
 
 CREATE TABLE `details` (
   `order_id` int(11) NOT NULL,
-  `detail_id` int(11) NOT NULL,
-  `cancel_date` date NOT NULL
+  `detail_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -106,7 +105,8 @@ CREATE TABLE `products` (
   `lunchshop_user_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `product_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(11) NOT NULL,
+  `cancel_limit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
