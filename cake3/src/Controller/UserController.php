@@ -39,6 +39,7 @@ class UserController extends AppController{
         $link = "";
         $fab = "<a id='fab' fref='".$link."' class='btn-floating btn-large waves-effect waves-light red'>
         <i class='material-icons'>add</i></a>";
+        $fab= "";
         $this->set("fab", $fab);
 
         //ヘッドライン
