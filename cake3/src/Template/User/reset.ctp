@@ -20,13 +20,13 @@
 </div>
 
 <script>
-            var $toastContent = $('<span>メールを送信しました。</span></span>').add($('<button class="btn-flat toast-action">Undo</button>'));
+            var $toastContent = $('<span>メールを送信しました。</span>');
             //読み込み時実行
 			$(document).ready(function(){
                 <?php
                 if($this->request->is('post')){
                 ?>
-                    Materialize.toast($toastContent, 1000);
+                    Materialize.toast($toastContent, 1500);
                     
                 <?php } ?>
                 
