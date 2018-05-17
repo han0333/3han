@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E17 日 03:36
+-- Generation Time: 2018 年 5 朁E17 日 06:54
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -64,8 +64,15 @@ CREATE TABLE `lunchshops` (
   `lunchshop_user_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `lunchshop_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `schedule` date NOT NULL
+  `schedule` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- テーブルのデータのダンプ `lunchshops`
+--
+
+INSERT INTO `lunchshops` (`lunchshop_user_id`, `lunchshop_name`, `image`, `schedule`) VALUES
+('mototyama', '本山弁当屋', '', '毎週火曜日定休日');
 
 -- --------------------------------------------------------
 
@@ -141,6 +148,7 @@ INSERT INTO `users` (`user_id`, `user_name`, `mail`, `password`) VALUES
 ('fukuhara', '福原浩', 'fukuhara@hiroshi.jp', 'hiroshi'),
 ('hayashida', '林田青哉', 'hayashida@seiya.jp', 'seiya'),
 ('mototyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
+('murase', '村瀨裕一郎', 'murase@yuichiro.jp', 'yuichiro'),
 ('sakai', '坂井将斗', 'sakai@masato.jp', 'masato');
 
 --
