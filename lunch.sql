@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E11 日 04:48
+-- Generation Time: 2018 年 5 朁E17 日 03:36
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -35,24 +35,12 @@ CREATE TABLE `customers` (
 -- --------------------------------------------------------
 
 --
--- テーブルの構造 `dateproducts`
---
-
-CREATE TABLE `dateproducts` (
-  `product_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `max` int(11) NOT NULL,
-  `order_flag` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- テーブルの構造 `dates`
 --
 
 CREATE TABLE `dates` (
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `day` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -146,6 +134,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- テーブルのデータのダンプ `users`
+--
+
+INSERT INTO `users` (`user_id`, `user_name`, `mail`, `password`) VALUES
+('fukuhara', '福原浩', 'fukuhara@hiroshi.jp', 'hiroshi'),
+('hayashida', '林田青哉', 'hayashida@seiya.jp', 'seiya'),
+('mototyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
+('sakai', '坂井将斗', 'sakai@masato.jp', 'masato');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -154,13 +152,6 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_user_id`);
-
---
--- Indexes for table `dateproducts`
---
-ALTER TABLE `dateproducts`
-  ADD PRIMARY KEY (`product_id`,`date`),
-  ADD KEY `dateproducts_ibfk_2` (`date`);
 
 --
 -- Indexes for table `dates`
@@ -220,6 +211,15 @@ ALTER TABLE `users`
   ADD KEY `user` (`user_id`) USING BTREE;
 
 --
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `role_id` int(10) NOT NULL AUTO_INCREMENT;
+--
 -- ダンプしたテーブルの制約
 --
 
@@ -228,13 +228,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `customers`
   ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`customer_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- テーブルの制約 `dateproducts`
---
-ALTER TABLE `dateproducts`
-  ADD CONSTRAINT `dateproducts_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dateproducts_ibfk_2` FOREIGN KEY (`date`) REFERENCES `dates` (`date`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- テーブルの制約 `details`
@@ -254,7 +247,7 @@ ALTER TABLE `lunchshops`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`lunchshop_user_id`) REFERENCES `lunchshops` (`lunchshop_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`customer_user_id`) REFERENCES `customers` (`customer_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`date`) REFERENCES `dates` (`date`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
