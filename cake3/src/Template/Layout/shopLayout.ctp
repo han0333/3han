@@ -1,85 +1,70 @@
 <!doctype html>
 <html lang="ja">
 
-	<head>
-		
-		<!--Import Google Icon Font-->
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		
-		<!-- Required meta tags -->
-        <meta charset="utf-8">
-        <title><?= $title ?></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <!-- chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="<?= $url ?>js/init.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
 
-		<!-- materialize -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        
-        <link rel="stylesheet" href="<?= $url ?>css/style.css">
-		
-		<script>
-            //読み込み時実行
-			$(document).ready(function(){
-                //初期化
-				$('.modal').modal();
-                //navberの有無
-                <?php
-                if($header_flag == 0){
-                    echo "$('#header').hide()";
-                }
-                ?>
-			});
-		</script>
+    <title>店舗選択</title>
+</head>
 
-	</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">本山弁当屋さん</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="http://0.0.0.0/cake3/Shop/">売上確認
+							<span class="sr-only">(current)</span>
+						</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="http://0.0.0.0/cake3/Shop/yoyaku">予約確認
+							<span class="sr-only">(current)</span>
+						</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="http://0.0.0.0/cake3/Shop/list">弁当一覧
+							<span class="sr-only">(current)</span>
+						</a>
+				</li>
+			</ul>
+		</div>
+</nav>
 
-	<body>
-        <!-- navber -->
-		<nav id="header" class="<?= $color ?>">
-			<div class="nav-wrapper">
-				<a href="<?= $url_c ?>/select" id="logo" class="brand-logo"><?= $title ?></a>
-				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-				<ul class="right hide-on-med-and-down">
-                    <?php
-                    foreach($nav_list as $value){
-                        echo "$value";
-                    }
-                    ?>
-				</ul>
-				<ul class="side-nav" id="mobile-demo">
-					<?php
-                    foreach($nav_list as $value){
-                        echo "$value";
-                    }
-                    ?>
-				</ul>
-			</div>
-        </nav>
-        
-        <div class="container my-30">
-            <?= $headline ?>
-            <?= $this->fetch('content')?>
-        </div>
+<div class="container mt-5" id="main">
+    <?= $this->fetch('content')?>
+</div>
 
-        <?= $fab; //フローティングアクションボタン ?>
-        
-        <!-- Modal Structure -->
-        <!--
-		<div id="modal1" class="modal modal-fixed-footer">
-			<div class="modal-content">
-				<h4>Modal Header</h4>
-				<p>A bunch of text</p>
-			</div>
-			<div class="modal-footer">
-				<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
-			</div>
-        </div>
-        -->
-	</body>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+
+<style>
+#main{
+    margin-bottom:3rem!important;
+}
+a{
+    text-decoration:none!important;
+}
+</style>
+</body>
 
 </html>
 
