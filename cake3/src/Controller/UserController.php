@@ -3,12 +3,11 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Routing\Router;
-use Cake\ORM\TableRegistry;
 
 class UserController extends AppController{
-
+    
     public function initialize(){
-        $this->viewBuilder()->setLayout('');
+        $this->viewBuilder()->setLayout('userLayout');
 
         //ベースURL
         $url = Router::url('/', true);
@@ -52,69 +51,58 @@ class UserController extends AppController{
     }
     //ログイン
     public function index(){
-        $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
        //ヘッドライン
     }
     //登録
     public function register(){
-        $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
         $this->set("headline", "<h4>新規登録</h4>");
     }
     //パスワードリセット
     public function reset(){
-        $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
-        $this->set("headline", "<h4>パスワードリセット</h4>");
+        $this->set("headline", "<h4>パスワードリセット</h4>");        
     }
     //パスワード再設定画面
     public function repassword(){
-        $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
-        $this->set("headline", "<h4>パスワード再設定</h4>");
+        $this->set("headline", "<h4>パスワード再設定</h4>");        
     }
     //店舗選択
     public function select(){
-        $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>店舗一覧</h4>");
-        $this->Shoplists = TableRegistry::get('lunchshops');
-        $data=$this->Shoplists->find('all');
-        $this->set('result', $data);
+        
     }
     //予約履歴
     public function rireki(){
-        $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>予約履歴</h4>");
-
+        
     }
     //弁当選択
     public function bento(){
-        $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>弁当一覧</h4>");
-
+        
     }
-
+    
     //予約
     public function yoyaku1(){
-        $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>弁当予約</h4>");
-
+        
     }
 
     //弁当予約
     public function yoyaku2(){
-        $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>予約完了</h4>");
-
+        
     }
 
 }
