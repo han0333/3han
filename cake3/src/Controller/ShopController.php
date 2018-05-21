@@ -57,13 +57,27 @@ class ShopController extends AppController{
     }
     public function list(){
         $this->set("headline", "<h4>弁当一覧</h4>");
+        //ベースURL
+        $url = Router::url('/', true);
+
+        //ベースURL + コントローラー名
+        $controllerName = $this->name;
+        $url_c = "$url"."$controllerName";
+
+        //FAB
+        $link = "$url_c"."/add";
+        $fab = "<a id='fab' href='".$link."' class='btn-floating btn-large waves-effect waves-light red'>
+        <i class='material-icons'>add</i></a>";
+        $this->set("fab", $fab);
     }
     public function yoyaku(){
-        $this->set("headline", "<h4>予約確認</h4>");
+        $this->set("headline", "<h4>予約詳細</h4>");
     }
     public function edit(){
+        $this->set("headline", "<h4>弁当編集</h4>");
     }
     public function add(){
+        $this->set("headline", "<h4>弁当追加</h4>");
     }
 
 
