@@ -15,7 +15,7 @@
                     <h4>¥450</h4>
                     </div>
                     <div class="card-action">
-                    <a href="'.$url_c.'/yoyaku">予約する</a>
+                    <a href="#">予約する</a>
                     </div>
                 </div>
             </div>

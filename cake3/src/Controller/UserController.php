@@ -69,6 +69,13 @@ class UserController extends AppController{
         //ヘッドライン
         $this->set("headline", "<h4>パスワードリセット</h4>");        
     }
+    //パスワード再設定画面
+    public function repassword(){
+        $this->viewBuilder()->setLayout('userLayout');
+        $this->set("header_flag", 0);
+        //ヘッドライン
+        $this->set("headline", "<h4>パスワード再設定</h4>");        
+    }
     //店舗選択
     public function select(){
         $this->viewBuilder()->setLayout('userLayout');
@@ -90,11 +97,20 @@ class UserController extends AppController{
         $this->set("headline", "<h4>弁当一覧</h4>");
         
     }
+    
+    //予約
+    public function yoyaku1(){
+        $this->viewBuilder()->setLayout('userLayout');
+        //ヘッドライン
+        $this->set("headline", "<h4>弁当予約</h4>");
+        
+    }
+
     //弁当予約
     public function bentoComp(){
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
-        $this->set("headline", "<h4></h4>");
+        $this->set("headline", "<h4>予約完了</h4>");
         
     }
 
