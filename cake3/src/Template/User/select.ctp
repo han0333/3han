@@ -11,8 +11,6 @@
                     <div class="card-content">
                     <span class="card-title"><?=$obj->lunchshop_name?></span>
                     <p>
-                    毎週火曜日、水曜日休み<br>
-                    平均価格:¥320
                     <br>
                     <?=$obj->schedule?><br>
                     </p>
