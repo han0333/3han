@@ -5,7 +5,7 @@ use App\Controller\AppController;
 use Cake\Routing\Router;
 
 class UserController extends AppController{
-    
+
     public function initialize(){
         $this->viewBuilder()->setLayout('');
 
@@ -67,7 +67,7 @@ class UserController extends AppController{
         $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
-        $this->set("headline", "<h4>パスワードリセット</h4>");        
+        $this->set("headline", "<h4>パスワードリセット</h4>");
     }
     //パスワード再設定画面
     public function repassword(){
@@ -81,21 +81,23 @@ class UserController extends AppController{
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>店舗一覧</h4>");
-        
+        $this->Shoplists = TableRegistry::get('lunchshops');
+        $data=$this->Shoplists->find('all');
+        $this->set('result', $data);
     }
     //予約履歴
     public function rireki(){
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4></h4>");
-        
+
     }
     //弁当選択
     public function bento(){
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>弁当一覧</h4>");
-        
+
     }
     
     //予約
@@ -110,8 +112,13 @@ class UserController extends AppController{
     public function bentoComp(){
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
+<<<<<<< HEAD
         $this->set("headline", "<h4>予約完了</h4>");
         
+=======
+        $this->set("headline", "<h4></h4>");
+
+>>>>>>> 8481e3161b45d52643c4c89304f4b8fa12099141
     }
 
 }
