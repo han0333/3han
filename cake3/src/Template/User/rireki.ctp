@@ -1,9 +1,27 @@
 <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a class="active" href="#now">予約中</a></li>
+        <li class="tab"><a class="active" href="#now">予約受付中</a></li>
         <li class="tab"><a  href="#was">予約履歴</a></li>
       </ul>
 </div>
+
+<form action="" method="post" class="row">
+<div class="input-field col s6 my-30">
+  <select class="browser-default">
+    <option value="" disabled selected><button type="submit">全期間</button></option>
+    <option value="1"><button type="submit">2018/05/16</button></option>
+    <option value="2"><button type="submit">前後１週間は出したい</button></option>
+  </select>
+</div>
+<div class="input-field col s6 my-30">
+  <select class="browser-default">
+    <option value="" disabled selected><button type="submit">全弁当</button></option>
+    <option value="1"><button type="submit">ハンバーグ弁当</button></option>
+  </select>
+</div>
+
+
+</form>
 
 <div class="row" id="now">
 <form action="<?= $url_c ?>/yoyaku2" method="post">
@@ -18,12 +36,12 @@
                     <div class="card-content">
                     <span class="card-title">ハンバーグ弁当</span>
                     <p>
-                    説明
+                    2018/05/17
                     </p>
                     <h4>¥450</h4>
                     <p>
-                            １日,２日
-                        </p>
+                            本山けいた
+                    </p>
                     </div>
                     <div class="card-action">
                         <p>
@@ -55,11 +73,15 @@
                     <div class="card-content">
                     <span class="card-title">ハンバーグ弁当</span>
                     <p>
-                    説明
+                    2018/05/17
                     </p>
                     <h4>¥450</h4>
                     <p>
-                            １日,２日
+                            本山けいた
+                    </p>
+                    </div>
+                    <div class="card-action">
+                        <p>
                         </p>
                     </div>
                 </div>
