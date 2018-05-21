@@ -1,4 +1,4 @@
-<h1 class="h1 text-center">弁当一覧</h1>
+
 
 <form action="shop-edit.html" method="post">
 

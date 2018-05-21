@@ -53,10 +53,13 @@ class ShopController extends AppController{
     }
 
     public function index(){
+         $this->set("headline", "<h4>売上確認</h4>");
     }
     public function list(){
+        $this->set("headline", "<h4>弁当一覧</h4>");
     }
     public function yoyaku(){
+        $this->set("headline", "<h4>予約確認</h4>");
     }
     public function edit(){
     }

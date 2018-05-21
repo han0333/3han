@@ -1,4 +1,4 @@
-<h1 class="h1 text-center">売上確認</h1>
+
 <form action="user-bento-comp.html" method="post">
     <input type="number" value="2018">年
     <input type="number" value="5">月

@@ -41,7 +41,7 @@
         <!-- navber -->
 		<nav id="header" class="<?= $color ?>">
 			<div class="nav-wrapper">
-				<a href="<?= $url_c ?>/select" id="logo" class="brand-logo"><?= $title ?></a>
+				<a href="<?= $url_c ?>/" id="logo" class="brand-logo"><?= $title ?></a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 				<ul class="right hide-on-med-and-down">
                     <?php
