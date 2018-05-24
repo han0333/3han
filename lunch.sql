@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E17 日 06:54
+-- Generation Time: 2018 年 5 朁E24 日 03:05
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -32,6 +32,13 @@ CREATE TABLE `customers` (
   `customer_flag` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- テーブルのデータのダンプ `customers`
+--
+
+INSERT INTO `customers` (`customer_user_id`, `customer_name`, `customer_flag`) VALUES
+('sakai', '坂井将斗', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -40,8 +47,16 @@ CREATE TABLE `customers` (
 
 CREATE TABLE `dates` (
   `date` date NOT NULL,
-  `day` varchar(5) NOT NULL
+  `day` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- テーブルのデータのダンプ `dates`
+--
+
+INSERT INTO `dates` (`date`, `day`) VALUES
+('2018-05-30', '水曜日'),
+('2018-05-31', '木曜日');
 
 -- --------------------------------------------------------
 
@@ -63,7 +78,7 @@ CREATE TABLE `details` (
 CREATE TABLE `lunchshops` (
   `lunchshop_user_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `lunchshop_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `image` mediumblob NOT NULL,
   `schedule` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -72,7 +87,7 @@ CREATE TABLE `lunchshops` (
 --
 
 INSERT INTO `lunchshops` (`lunchshop_user_id`, `lunchshop_name`, `image`, `schedule`) VALUES
-('mototyama', '本山弁当屋', '', '毎週火曜日定休日');
+('motoyama', '本山弁当屋', '', '毎週火曜日定休日');
 
 -- --------------------------------------------------------
 
@@ -89,6 +104,14 @@ CREATE TABLE `orders` (
   `number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- テーブルのデータのダンプ `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `lunchshop_user_id`, `customer_user_id`, `product_id`, `date`, `number`) VALUES
+(1, 'motoyama', 'sakai', 1, '2018-05-31', 4),
+(2, 'motoyama', 'sakai', 2, '2018-05-30', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -98,11 +121,19 @@ CREATE TABLE `orders` (
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
   `lunchshop_user_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `image` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `image` mediumblob NOT NULL,
   `product_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `price` int(11) NOT NULL,
   `cancel_limit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- テーブルのデータのダンプ `products`
+--
+
+INSERT INTO `products` (`product_id`, `lunchshop_user_id`, `image`, `product_name`, `price`, `cancel_limit`) VALUES
+(1, 'motoyama', '', 'ハンバーグ弁当', 300, 7),
+(2, 'motoyama', '', '唐揚弁当', 350, 0);
 
 -- --------------------------------------------------------
 
@@ -116,6 +147,14 @@ CREATE TABLE `roles` (
   `permission` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- テーブルのデータのダンプ `roles`
+--
+
+INSERT INTO `roles` (`role_id`, `role_name`, `permission`) VALUES
+(1, '弁当屋', '全てのページにアクセスできる'),
+(2, 'ユーザ', '一部のページにアクセスできる');
+
 -- --------------------------------------------------------
 
 --
@@ -127,6 +166,17 @@ CREATE TABLE `userroles` (
   `role_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- テーブルのデータのダンプ `userroles`
+--
+
+INSERT INTO `userroles` (`user_id`, `role_id`) VALUES
+('gotoh', 2),
+('imaizumi', 2),
+('miyazaki', 2),
+('motoyama', 1),
+('sakai', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -137,7 +187,7 @@ CREATE TABLE `users` (
   `user_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `mail` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -146,8 +196,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `mail`, `password`) VALUES
 ('fukuhara', '福原浩', 'fukuhara@hiroshi.jp', 'hiroshi'),
+('gotoh', '後藤優太郎', 'gotoh@yutaroh.jp', '$2y$10$UzWm5ezZhnC4MrN8Ygs.GOEiUyAbM5npXzBoyxyB3i0j1.1IqT3sW'),
 ('hayashida', '林田青哉', 'hayashida@seiya.jp', 'seiya'),
-('mototyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
+('imaizumi', '今泉駿一', 'ima@izumi', '$2y$10$u/GldAqnf74yTGC655EqCuo9d1NYM1KBiaPH1YP6vbBVx9SgfYZfy'),
+('miyazaki', 'miyazaki', 'miya@zaki.jp', 'kazukiiii'),
+('motoyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
 ('murase', '村瀨裕一郎', 'murase@yuichiro.jp', 'yuichiro'),
 ('sakai', '坂井将斗', 'sakai@masato.jp', 'masato');
 
@@ -216,6 +269,8 @@ ALTER TABLE `userroles`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_name` (`user_name`),
+  ADD UNIQUE KEY `user_name_2` (`user_name`),
   ADD KEY `user` (`user_id`) USING BTREE;
 
 --
@@ -226,7 +281,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `role_id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `role_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- ダンプしたテーブルの制約
 --
