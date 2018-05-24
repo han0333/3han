@@ -6,7 +6,7 @@ use Cake\Routing\Router;
 use cake\ORM\TableRegistry;
 use Cake\Event\Event;
 
-class UsersController extends AppController{
+class UserController extends AppController{
 
     public function initialize(){
         $this->viewBuilder()->setLayout('');
