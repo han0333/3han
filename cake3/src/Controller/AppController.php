@@ -39,10 +39,32 @@ class AppController extends Controller
      */
     public function initialize()
     {
+
         parent::initialize();
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authorize' => 'Controller',
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'index'
+            ],
+            'authenticate' => [
+                'Form' => [
+                  'fields' => [
+                    'username' => 'user_id',
+                    'password' => 'password'
+                  ]
+                ]
+            ],
+            'loginRedirect' => [
+                'controller' => 'Users',
+                'action' => 'select'
+            ],
+        ]);
+
+
 
         /*
          * Enable the following components for recommended CakePHP security settings.
@@ -50,6 +72,14 @@ class AppController extends Controller
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+    }
+
+    public function isAuthorized($user = null)
+    {
+        if (!$this->request->getParam('prefix')) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -69,4 +99,11 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index','register','reset']);
+
+    }
+
 }
