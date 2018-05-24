@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E24 日 03:05
+-- Generation Time: 2018 年 5 朁E24 日 07:52
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -172,10 +172,11 @@ CREATE TABLE `userroles` (
 
 INSERT INTO `userroles` (`user_id`, `role_id`) VALUES
 ('gotoh', 2),
-('imaizumi', 2),
+('imaizumi', 1),
 ('miyazaki', 2),
 ('motoyama', 1),
-('sakai', 2);
+('sakai', 2),
+('tashima', 2);
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,8 @@ INSERT INTO `users` (`user_id`, `user_name`, `mail`, `password`) VALUES
 ('miyazaki', 'miyazaki', 'miya@zaki.jp', 'kazukiiii'),
 ('motoyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
 ('murase', '村瀨裕一郎', 'murase@yuichiro.jp', 'yuichiro'),
-('sakai', '坂井将斗', 'sakai@masato.jp', 'masato');
+('sakai', '坂井将斗', 'sakai@masato.jp', 'masato'),
+('tashima', '田島直人', 'tashima@naoto', '$2y$10$h69Fsrx.udhO89ZukfjHlOXNJk98RkbaFXVERwep/CVzHsPWmWiVq');
 
 --
 -- Indexes for dumped tables
@@ -278,6 +280,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
@@ -310,14 +317,8 @@ ALTER TABLE `lunchshops`
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`lunchshop_user_id`) REFERENCES `lunchshops` (`lunchshop_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`customer_user_id`) REFERENCES `customers` (`customer_user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_ibfk_4` FOREIGN KEY (`date`) REFERENCES `dates` (`date`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- テーブルの制約 `products`
---
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`lunchshop_user_id`) REFERENCES `lunchshops` (`lunchshop_user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- テーブルの制約 `userroles`
