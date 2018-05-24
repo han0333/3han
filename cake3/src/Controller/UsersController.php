@@ -56,12 +56,7 @@ class UsersController extends AppController{
         $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
-
-       //$this->set(compact('users'));
-
-        //$use = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            //$use = $this->Users->patchEntity($use, $this->request->data);
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
@@ -69,7 +64,6 @@ class UsersController extends AppController{
             }
             $this->Flash->error(__('Invalid username or password, try again'));
         }
-        //$this->set(compact($use));
 
 
     }
