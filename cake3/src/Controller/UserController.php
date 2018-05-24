@@ -98,6 +98,9 @@ class UserController extends AppController{
     public function yoyaku1(){
         //ヘッドライン
         $this->set("headline", "<h4>弁当予約</h4>");
+        $this->Shoplists = TableRegistry::get('products');
+        $data=$this->Shoplists->find('all');
+        $this->set('result1', $data);
 
     }
 
