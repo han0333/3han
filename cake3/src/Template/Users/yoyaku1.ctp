@@ -1,40 +1,40 @@
 <div class="row hoge">
 <form action="<?= $url_c ?>/yoyaku2" method="post">
+<?php $kekka=0; ?>
+    <?php foreach($result1  as  $obj):?>
+    <div class="col s12 m4">
+        <div class="card">
             <?php
-            for($i=0;$i<4;$i++){
-            echo '
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-image">
-                    <img src="'.$url.'img/bento.jpeg">
-                    </div>
-                    <div class="card-content">
-                    <span class="card-title">ハンバーグ弁当</span>
-                    <p>
-                    説明
-                    </p>
-                    <h4>¥450</h4>
-                    <p>
-                            １日,２日
-                        </p>
-                    </div>
-                    <div class="card-action">
-                        <p>
-                        <button type="submit" class="btn">キャンセル</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            ';
-            }
+                $img = base64_encode(stream_get_contents($obj->image));
             ?>
-            
-            <button type="submit" id="yoyaku_btn" class="btn">予約する</button>
-            
+            <img src="data:image/png;base64,<?=$img ?>">
+            <div class="card-content">
+                <span class="card-title"><?=$obj->product_name?></span>
+                <h4><?=$obj->price?>円</h4>
+                <p>
+                受け取り予定日
+                </p>
+            </div>
+            <div class="card-action">
+            <?php
+            $obj->product_id
+            ?>
+                <p>
+                <button type="submit" name="action" class="btn">キャンセル</button>
+                </p>
+            </div>
+        </div>
+    </div>
+        <?php
+        $sum=$obj->price;
+        $kekka=$kekka+$sum;
+        ?>
+    <?php  endforeach;  ?>
+    <button type="submit" id="yoyaku_btn" class="btn">予約する</button>
 </form>
 </div>
 <div id="sum">
-            <h2>合計：￥800</h2>
+<h4>合計：<?=$kekka?>円</h4>
 </div>
 <style>
     #yoyaku_btn{

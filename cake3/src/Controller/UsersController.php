@@ -64,8 +64,6 @@ class UsersController extends AppController{
             }
             $this->Flash->error(__('Invalid username or password, try again'));
         }
-
-
     }
     //登録
     public function register(){
@@ -117,6 +115,9 @@ class UsersController extends AppController{
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>店舗一覧</h4>");
+        $this->Shoplists = TableRegistry::get('lunchshops');
+        $data=$this->Shoplists->find('all');
+        $this->set('result', $data);
 
     }
     //予約履歴
@@ -141,12 +142,40 @@ class UsersController extends AppController{
         //ヘッドライン
         $this->set("headline", "<h4>弁当一覧</h4>");
 
+        $shop_id = $this->request->data('shop_id');
+        /*
+        $this->set('entity',$this->Shoplists->newEntity());
+        $entity = $this->Shoplists->get($value);
+        $this->set('entity',$entity);
+        */
+
     }
-    //弁当予約
-    public function bentoComp(){
-        $this->viewBuilder()->setLayout('userLayout');
+    //予約
+    public function yoyaku1(){
         //ヘッドライン
-        $this->set("headline", "<h4></h4>");
+        $this->set("headline", "<h4>弁当予約</h4>");
+        $this->Shoplists = TableRegistry::get('products');
+        $data=$this->Shoplists->find('all');
+        $this->set('result1', $data);
+    }
+
+    //予約キャンセル機能(画面不要)
+    public function delRecord($id){
+        if($id != null){
+            try{
+                $entity = $this->Costs->get($id);
+                $this->Costs->delete($entity);
+            }catch(Exception $e){
+                Log::write('debug', $e->getMessage());
+            }
+        }
+        return $this->redirect(['action' => 'index']);
+	}
+
+    //弁当予約
+    public function yoyaku2(){
+        //ヘッドライン
+        $this->set("headline", "<h4>予約完了</h4>");
 
     }
 
