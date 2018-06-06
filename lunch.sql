@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018 年 5 朁E24 日 07:52
+-- Generation Time: 2018 年 6 朁E06 日 04:42
 -- サーバのバージョン： 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -37,7 +37,12 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_user_id`, `customer_name`, `customer_flag`) VALUES
-('sakai', '坂井将斗', NULL);
+('hayashida', '平田祐大', NULL),
+('hirata12', '平田祐大12', NULL),
+('murase', 'aiueo', NULL),
+('nakanishi', '中西成人', NULL),
+('sakai', '坂井将斗', NULL),
+('tashima', '田島直人', NULL);
 
 -- --------------------------------------------------------
 
@@ -56,7 +61,8 @@ CREATE TABLE `dates` (
 
 INSERT INTO `dates` (`date`, `day`) VALUES
 ('2018-05-30', '水曜日'),
-('2018-05-31', '木曜日');
+('2018-05-31', '木曜日'),
+('2018-06-06', '水曜日');
 
 -- --------------------------------------------------------
 
@@ -87,6 +93,7 @@ CREATE TABLE `lunchshops` (
 --
 
 INSERT INTO `lunchshops` (`lunchshop_user_id`, `lunchshop_name`, `image`, `schedule`) VALUES
+('imaizumi', '今泉駿一', '', '毎週火曜日定休日'),
 ('motoyama', '本山弁当屋', '', '毎週火曜日定休日');
 
 -- --------------------------------------------------------
@@ -109,8 +116,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `lunchshop_user_id`, `customer_user_id`, `product_id`, `date`, `number`) VALUES
-(1, 'motoyama', 'sakai', 1, '2018-05-31', 4),
-(2, 'motoyama', 'sakai', 2, '2018-05-30', 5);
+(1, 'imaizumi', 'sakai', 1, '2018-05-31', 4),
+(2, 'imaizumi', 'sakai', 2, '2018-05-30', 5),
+(3, 'imaizumi', 'sakai', 2, '2018-06-06', 10),
+(4, 'motoyama', 'tashima', 2, '2018-06-06', 4);
 
 -- --------------------------------------------------------
 
@@ -133,7 +142,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`product_id`, `lunchshop_user_id`, `image`, `product_name`, `price`, `cancel_limit`) VALUES
 (1, 'motoyama', '', 'ハンバーグ弁当', 300, 7),
-(2, 'motoyama', '', '唐揚弁当', 350, 0);
+(2, 'motoyama', '', '唐揚弁当', 350, 7);
 
 -- --------------------------------------------------------
 
@@ -172,9 +181,14 @@ CREATE TABLE `userroles` (
 
 INSERT INTO `userroles` (`user_id`, `role_id`) VALUES
 ('gotoh', 2),
+('hayashida', 2),
+('hirata12', 2),
 ('imaizumi', 1),
 ('miyazaki', 2),
 ('motoyama', 1),
+('murase', 2),
+('nakanishi', 2),
+('saitonaruh', 2),
 ('sakai', 2),
 ('tashima', 2);
 
@@ -196,13 +210,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `mail`, `password`) VALUES
-('fukuhara', '福原浩', 'fukuhara@hiroshi.jp', 'hiroshi'),
 ('gotoh', '後藤優太郎', 'gotoh@yutaroh.jp', '$2y$10$UzWm5ezZhnC4MrN8Ygs.GOEiUyAbM5npXzBoyxyB3i0j1.1IqT3sW'),
-('hayashida', '林田青哉', 'hayashida@seiya.jp', 'seiya'),
+('hayashida', '平田祐大', 'hirata@yudai', '$2y$10$rgIY4Twq45DcTfJdbWOnIunLrAaKFqhSQXoo94V8MHcTo2kQsTNoO'),
+('hirata12', '平田祐大12', 'hirata@yudai', '$2y$10$rXZgtahdnuO7Y5eeaFT1meJIbpA2taHLPFJzuHLfuwWEHjDLQhcZG'),
 ('imaizumi', '今泉駿一', 'ima@izumi', '$2y$10$u/GldAqnf74yTGC655EqCuo9d1NYM1KBiaPH1YP6vbBVx9SgfYZfy'),
 ('miyazaki', 'miyazaki', 'miya@zaki.jp', 'kazukiiii'),
 ('motoyama', '本山圭太', 'motoyama@keita.jp', 'motoyama'),
 ('murase', '村瀨裕一郎', 'murase@yuichiro.jp', 'yuichiro'),
+('nakanishi', '中西成人', 'nakanishi@naru', '$2y$10$3oD7734gLPG24Qyvrp9Qoe73LgnbBhHNk5fFpgwrH8gSa5FaT4QG2'),
+('saitonaruh', '斎藤成人', 'saito@naru', '$2y$10$X.5ujtcF8HgxBqFNrQGSPO9vtcLEsa1RnZ8IUsRxWcjHTdqstH7i.'),
 ('sakai', '坂井将斗', 'sakai@masato.jp', 'masato'),
 ('tashima', '田島直人', 'tashima@naoto', '$2y$10$h69Fsrx.udhO89ZukfjHlOXNJk98RkbaFXVERwep/CVzHsPWmWiVq');
 
@@ -273,12 +289,18 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `user_name` (`user_name`),
   ADD UNIQUE KEY `user_name_2` (`user_name`),
+  ADD UNIQUE KEY `user_id` (`user_id`),
   ADD KEY `user` (`user_id`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `products`
 --

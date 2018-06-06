@@ -95,6 +95,7 @@ class UsersController extends AppController{
     public function register(){
         $this->Users = TableRegistry::get('Users');
         $this->Userroles = TableRegistry::get('Userroles');
+        $this->Customers = TableRegistry::get('Customers');
         $this->viewBuilder()->setLayout('userLayout');
         $this->set("header_flag", 0);
         //ヘッドライン
@@ -107,11 +108,32 @@ class UsersController extends AppController{
         $this->set('role',$role);
         $this->set('entity',$this->Userroles->newEntity());
 
+        $cus = $this->Customers->find('all');
+        $this->set('cus',$cus);
+        $this->set('entity',$this->Customers->newEntity());
+
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $n = $user->user_id;
+            $select = $this->Users->find();
+            $select->select(['count' => $select->func()->count('*')])->where(['user_id' => $n]);
+            foreach($select as $s):
+                //echo $s->count;
+            endforeach;
+            if ($s->count == 0) {
+
+                $this->Users->save($user);
+                //カスタマー登録
+
+                $user = $this->Customers->newEntity($this->request->data);
+                $user_id = $user->user_id;
+                $user_name = $user->user_name;
+                $datac = ['customer_user_id'=>$user_id,'customer_name'=>$user_name];
+
+                $dataa = $this->Customers->newEntity($datac);
+
+                $this->Customers->save($dataa);
 
                 //ユーザロール登録
                 $user = $this->Userroles->newEntity($this->request->data);
@@ -121,11 +143,16 @@ class UsersController extends AppController{
                 $data = $this->Userroles->newEntity($datas);
 
                 $this->Userroles->save($data);
+
+                $error = 'success';
+                $this->set('error',$error);
+            } else {
+                $error = 'error';
+                $this->set('error',$error);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
-        //$this->set('_serialize', ['user']);
+
 
     }
 

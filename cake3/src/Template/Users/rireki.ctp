@@ -1,105 +1,183 @@
 <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a class="active" href="#now">予約受付中</a></li>
+        <li class="tab"><a class="active" href="#now">予約中</a></li>
         <li class="tab"><a  href="#was">予約履歴</a></li>
       </ul>
 </div>
 
-<form action="" method="post" class="row">
+<form method="get" class="row" name="formItem">
 <div class="input-field col s6 my-30">
-  <select class="browser-default">
-    <option value="" disabled selected><button type="submit">全期間</button></option>
-    <option value="1"><button type="submit">2018/05/16</button></option>
-    <option value="2"><button type="submit">前後１週間は出したい</button></option>
+  <select class="browser-default" onchange="submit(this.form)" name="cc">
+  <option value="" disabled selected>全期間</option>
+    <?php
+    $day = $day->modify('-7 days');
+    for($i=-7;$i<=7;$i++) {
+        if ($i != -7){
+            $day = $day->modify('+1 days');
+        }
+        echo '<option value="'.$i.'">'.$day->format('Y/m/d').'</option>';
+    } ?>
   </select>
 </div>
-<div class="input-field col s6 my-30">
+<!--<div class="input-field col s6 my-30">
   <select class="browser-default">
     <option value="" disabled selected><button type="submit">全弁当</button></option>
-    <option value="1"><button type="submit">ハンバーグ弁当</button></option>
+    <option value="1"><button type="submit"><?=$obj->product->product_name ?></button></option>
   </select>
-</div>
+</div>-->
 
 
 </form>
 
+
+
 <div class="row" id="now">
 <form action="<?= $url_c ?>/yoyaku2" method="post">
             <?php
-            for($i=0;$i<1;$i++){
-            echo '
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-image">
-                    <img src="'.$url.'img/bento.jpeg">
+            if ($_GET){
+                foreach ($data as $obj):
+                    $time = $obj->date;
+                    $rdate = $rdate->modify('+'.$_GET['cc'].'days');
+                    $rdate = $rdate->format('Y/m/d');
+                    $date = $date->format('Y/m/d');
+                    if ($rdate == $obj->date && $date < $obj->date){
+                    echo '
+                        <div class="col s12 m4">
+                            <div class="card">
+                                <div class="card-image">
+                                <img src="'.$url.'img/bento.jpeg">
+                                </div>
+                                <div class="card-content">
+                                <span class="card-title">'.$obj->product->product_name.'</span>
+                                <p>
+                                '.$obj->date.'
+                                </p>
+                                <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                                </div>
+                                <div class="card-action">';
+                                    if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
+                                    echo '<p>';
+                                    echo '<button type="submit" class="btn">キャンセル</button>';
+                                    echo '</p>';
+                                    }
+                                echo '
+                                </div>
+                            </div>
+                        </div>
+                        ';
+                    }
+                endforeach;
+            } else {
+                foreach ($data as $obj):
+                $time = $obj->date;
+                if ($date <= $obj->date){
+                echo '
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-image">
+                            <img src="'.$url.'img/bento.jpeg">
+                            </div>
+                            <div class="card-content">
+                            <span class="card-title">'.$obj->product->product_name.'</span>
+                            <p>
+                            '.$obj->date.'
+                            </p>
+                            <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                            </div>
+                            <div class="card-action">';
+                                if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
+                                echo '<p>';
+                                echo '<button type="submit" class="btn">キャンセル</button>';
+                                echo '</p>';
+                                }
+                            echo '
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-content">
-                    <span class="card-title">ハンバーグ弁当</span>
-                    <p>
-                    2018/05/17
-                    </p>
-                    <h4>¥450</h4>
-                    <p>
-                            本山けいた
-                    </p>
-                    </div>
-                    <div class="card-action">
-                        <p>
-                        <button type="submit" class="btn">キャンセル</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            ';
-            }
-            ?>
+                    ';
+
+                }
+                endforeach;
+             } ?>
             <!--
             <button type="submit" id="yoyaku_btn" class="btn">予約する</button>
             -->
-            
+
 </form>
 </div>
 
 <div class="row" id="was">
 <form action="<?= $url_c ?>/yoyaku2" method="post">
             <?php
-            for($i=0;$i<3;$i++){
-            echo '
-            <div class="col s12 m4">
-                <div class="card">
-                    <div class="card-image">
-                    <img src="'.$url.'img/bento.jpeg">
+            if ($_GET){
+                foreach ($data as $obj):
+                    if ($rdate == $obj->date && $date > $obj->date){
+                    echo '
+                        <div class="col s12 m4">
+                            <div class="card">
+                                <div class="card-image">
+                                <img src="'.$url.'img/bento.jpeg">
+                                </div>
+                                <div class="card-content">
+                                <span class="card-title">'.$obj->product->product_name.'</span>
+                                <p>
+                                '.$obj->date.'
+                                </p>
+                                <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                                </div>
+                                <div class="card-action">';
+                                    if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
+                                    echo '<p>';
+                                    echo '<button type="submit" class="btn">キャンセル</button>';
+                                    echo '</p>';
+                                    }
+                                echo '
+                                </div>
+                            </div>
+                        </div>
+                        ';
+                    }
+                endforeach;
+            } else {
+                foreach ($data as $obj):
+                $time = $obj->date;
+                if ($date <= $obj->date){
+                echo '
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-image">
+                            <img src="'.$url.'img/bento.jpeg">
+                            </div>
+                            <div class="card-content">
+                            <span class="card-title">'.$obj->product->product_name.'</span>
+                            <p>
+                            '.$obj->date.'
+                            </p>
+                            <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                            </div>
+                            <div class="card-action">';
+                                if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
+                                echo '<p>';
+                                echo '<button type="submit" class="btn">キャンセル</button>';
+                                echo '</p>';
+                                }
+                            echo '
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-content">
-                    <span class="card-title">ハンバーグ弁当</span>
-                    <p>
-                    2018/05/17
-                    </p>
-                    <h4>¥450</h4>
-                    <p>
-                            本山けいた
-                    </p>
-                    </div>
-                    <div class="card-action">
-                        <p>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            ';
-            }
-            ?>
+                    ';
+
+                }
+                endforeach;
+             } ?>
             <!--
             <button type="submit" id="yoyaku_btn" class="btn">予約する</button>
             -->
-            
+
 </form>
 </div>
-<!-- 
-<div id="sum">
-            <h2>合計：￥800</h2>
-</div>
--->
+
+
 <style>
     #yoyaku_btn{
         position:fixed;
