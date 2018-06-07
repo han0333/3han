@@ -35,12 +35,10 @@
 <form action="<?= $url_c ?>/yoyaku2" method="post">
             <?php
             if ($_GET){
+                $rdate = $rdate->modify('+'.$_GET['cc'].'days');
                 foreach ($data as $obj):
                     $time = $obj->date;
-                    $rdate = $rdate->modify('+'.$_GET['cc'].'days');
-                    $rdate = $rdate->format('Y/m/d');
-                    $date = $date->format('Y/m/d');
-                    if ($rdate == $obj->date && $date < $obj->date){
+                    if ($rdate->format('Y/m/d') == $obj->date && $date->format('Y/m/d') < $obj->date){
                     echo '
                         <div class="col s12 m4">
                             <div class="card">
@@ -52,13 +50,14 @@
                                 <p>
                                 '.$obj->date.'
                                 </p>
-                                <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                                <h4>¥'.$obj->product->price.'</h4>
                                 </div>
                                 <div class="card-action">';
                                     if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
                                     echo '<p>';
                                     echo '<button type="submit" class="btn">キャンセル</button>';
                                     echo '</p>';
+                                    echo $time->modify('-'.$obj->product->cancel_limit.'days'),'までキャンセル可能です。';
                                     }
                                 echo '
                                 </div>
@@ -70,7 +69,7 @@
             } else {
                 foreach ($data as $obj):
                 $time = $obj->date;
-                if ($date <= $obj->date){
+                if ($date->format('Y/m/d') < $obj->date){
                 echo '
                     <div class="col s12 m4">
                         <div class="card">
@@ -82,13 +81,14 @@
                             <p>
                             '.$obj->date.'
                             </p>
-                            <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                            <h4>¥'.$obj->product->price.'</h4>
                             </div>
                             <div class="card-action">';
                                 if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
                                 echo '<p>';
                                 echo '<button type="submit" class="btn">キャンセル</button>';
                                 echo '</p>';
+                                echo $time->modify('-'.$obj->product->cancel_limit.'days'),'までキャンセル可能です。';
                                 }
                             echo '
                             </div>
@@ -111,7 +111,7 @@
             <?php
             if ($_GET){
                 foreach ($data as $obj):
-                    if ($rdate == $obj->date && $date > $obj->date){
+                    if ($rdate->format('Y/m/d') == $obj->date && $date->format('Y/m/d') > $obj->date){
                     echo '
                         <div class="col s12 m4">
                             <div class="card">
@@ -123,14 +123,9 @@
                                 <p>
                                 '.$obj->date.'
                                 </p>
-                                <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                                <h4>¥'.$obj->product->price.'</h4>
                                 </div>
                                 <div class="card-action">';
-                                    if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
-                                    echo '<p>';
-                                    echo '<button type="submit" class="btn">キャンセル</button>';
-                                    echo '</p>';
-                                    }
                                 echo '
                                 </div>
                             </div>
@@ -141,7 +136,7 @@
             } else {
                 foreach ($data as $obj):
                 $time = $obj->date;
-                if ($date <= $obj->date){
+                if ($date->format('Y/m/d') > $obj->date){
                 echo '
                     <div class="col s12 m4">
                         <div class="card">
@@ -153,14 +148,9 @@
                             <p>
                             '.$obj->date.'
                             </p>
-                            <h4>¥'.$obj->product->price * $obj->number.'</h4>
+                            <h4>¥'.$obj->product->price.'</h4>
                             </div>
                             <div class="card-action">';
-                                if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
-                                echo '<p>';
-                                echo '<button type="submit" class="btn">キャンセル</button>';
-                                echo '</p>';
-                                }
                             echo '
                             </div>
                         </div>
