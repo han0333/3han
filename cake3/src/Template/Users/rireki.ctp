@@ -55,7 +55,7 @@
                                 <div class="card-action">';
                                     if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
                                     echo '<p>';
-                                    echo '<button type="submit" class="btn">キャンセル</button>';
+                                    echo '<button type="submit" class="btn" name="order_id" value='.$obj->order_id.'>キャンセル</button>';
                                     echo '</p>';
                                     echo $time->modify('-'.$obj->product->cancel_limit.'days'),'までキャンセル可能です。';
                                     }
@@ -86,7 +86,7 @@
                             <div class="card-action">';
                                 if($date <= $time->modify('-'.$obj->product->cancel_limit.'days')){
                                 echo '<p>';
-                                echo '<button type="submit" class="btn">キャンセル</button>';
+                                echo '<button type="submit" class="btn" name="order_id" value='.$obj->order_id.'>キャンセル</button>';
                                 echo '</p>';
                                 echo $time->modify('-'.$obj->product->cancel_limit.'days'),'までキャンセル可能です。';
                                 }

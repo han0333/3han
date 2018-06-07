@@ -246,7 +246,7 @@ class UsersController extends AppController{
     }
 
 
-    public function yoyaku2(){
+    public function yoyaku3(){
         //ヘッドライン
         $this->set("headline", "<h4>予約完了</h4>");
         $date0 = date('Y-m');
@@ -270,6 +270,18 @@ class UsersController extends AppController{
         $this->set('i',$i);
 
         return $this->resirect(['action'=>'select']);
+    }
+
+    //弁当キャンセル
+    public function yoyaku2(){
+        $order_id = $this->request->data('order_id');
+        var_dump($order_id);
+        $conn = ConnectionManager::get('default');
+        $conn->query("
+        DELETE FROM orders WHERE `orders`.`order_id` = $order_id
+        ");
+
+        return $this->redirect(['action'=>'rireki']);
     }
 
     public function beforeFilter(Event $event)

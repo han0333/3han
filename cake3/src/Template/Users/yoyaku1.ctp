@@ -1,6 +1,6 @@
 <div class="row hoge">
 
-<form action="<?= $url_c ?>/yoyaku2" method="post">
+<form action="<?= $url_c ?>/yoyaku3" method="post">
 <?php $kekka=0; ?>
     <?php $a=0;  for($j=1;$j<=$i;$j++):?>
     <?php foreach( @${result.$j} as  $obj):?>
