@@ -246,8 +246,30 @@ class UsersController extends AppController{
     }
 
 
-    public function yoyaku2() {
+    public function yoyaku2(){
+        //ヘッドライン
+        $this->set("headline", "<h4>予約完了</h4>");
+        $date0 = date('Y-m');
+        $posts = $this->request->data;
+        $this->set('posts',$posts);
+        $i = 0;
+        foreach($posts as $val){
+            $i++;
+            $pieces = explode(",", $val);
+            $product_id = $pieces[0];
+            $date = $pieces[2];
+            $lunchshop_user_id = $pieces[1];
+            $this->users = TableRegistry::get('users');
+            $name = $this->request->session()->read('Auth');
+            $customer_user_id =  $name['User']['user_id'];
+            $conn = ConnectionManager::get('default');
+            $conn->query("
+            INSERT INTO orders(`lunchshop_user_id`, `customer_user_id`, `product_id`, `date`) VALUES ('$lunchshop_user_id', '$customer_user_id', $product_id,'$date0-$date' );
+            ");
+        }
+        $this->set('i',$i);
 
+        return $this->resirect(['action'=>'select']);
     }
 
     public function beforeFilter(Event $event)
