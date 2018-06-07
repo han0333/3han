@@ -35,7 +35,7 @@ if ($_POST) {
                     data:';
                     echo '[';
                     foreach($result as $obj):
-                    echo '"'.$obj['price'] * $obj['number'],'",';
+                    echo '"'.$obj['sale'],'",';
                     endforeach;
                     echo '],
                     backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
@@ -43,12 +43,15 @@ if ($_POST) {
             }
         });
     </script>';
+    } else {
+        echo 'この日の売り上げはありません。';
     }
 
-} else {
+
+} else if(!$_POST) {
 
     echo '<form action="shop" method="post">';
-        echo '<input type="number" value='.$year.' name="year">年';
+        echo '<input type="number" value='.$year.' name="year" min=2018>年';
         echo '<input type="number" value='.$month.' max=12 min=1 name="month">月';
         echo '<input type="number" value='.$day.' max=31 min=1 name="day">日';
         echo '<button type="submit" class="btn-primary">確認</button>';
@@ -63,15 +66,15 @@ if ($_POST) {
             data: {
                 labels:';
                     echo '[';
-                    foreach($order as $obj):
-                    echo '"'.$obj->product->product_name,'",';
+                    foreach($count as $obj):
+                    echo '"'.$obj['product_name'],'",';
                     endforeach;
                     echo '],
                 datasets: [{
                     data:';
                     echo '[';
-                    foreach($order as $obj):
-                    echo '"'.$obj->product->price * $obj->number,'",';
+                    foreach($count as $obj):
+                    echo '"'.$obj['sale'],'",';
                     endforeach;
                     echo '],
                     backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
@@ -81,29 +84,3 @@ if ($_POST) {
     </script>';
 }
 ?>
-
-<!--<canvas id="myChart"></canvas>
-<script>
-
-        new Chart(document.getElementById("myChart"), {
-            type: "doughnut",
-            data: {
-                labels: <?php
-                    echo '[';
-                    foreach($order as $obj):
-                    echo '"'.$obj->product->product_name,'",';
-                    endforeach;
-                    echo ']'?>,
-                datasets: [{
-                    data: <?php
-                    echo '[';
-                    foreach($order as $obj):
-                    echo '"'.$obj->product->price * $obj->number,'",';
-                    endforeach;
-                    echo ']'?>,
-                    backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
-                }]
-            }
-        });
-}
-</script>-->
