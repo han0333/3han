@@ -1,44 +1,63 @@
 <div class="row">
-<form action="<?= $url_c ?>/yoyaku1" method="post">
-            <?php
-            for($i=0;$i<8;$i++){
-            echo '
+<form name="aaa" action="<?= $url_c ?>/yoyaku1" method="post">
+    <?php
+    $j = 1;
+    foreach($data  as  $obj):?>
             <div class="col s12 m4">
                 <div class="card">
                     <div class="card-image">
-                    <img src="'.$url.'img/bento.jpeg">
+                    <?php
+                        $img = base64_encode(stream_get_contents($obj->image));
+                    ?>
+                    <img src="data:image/png;base64,<?=$img ?>">
                     </div>
                     <div class="card-content">
-                    <span class="card-title">ハンバーグ弁当</span>
-                    <p>
-                    説明
-                    </p>
-                    <h4>¥450</h4>
+                    <span class="card-title"><?=$obj->product_name?></span>
+                    <h4><?=$obj->price?>円</h4>
+                    <?php
+                    $d = (int)date('t');
+                    $date0 =  (int)date("d",strtotime("$obj->cancel_limit day"));
+                    $date = array();
+                    for($i = 0 ; $i < 7; $i++){ //繰り返す回数はdateに入ってる要素数
+                        if($date0 <= $d ){
+                            $date[$i] = $date0;
+                            $date0++;
+                        } else {
+                            $date0=1;
+                            $date[$i] = $date0;
+                            $date0++;
+                        }
+                    }
+                    ?>
                     </div>
+                    <?php
+                    $lunchshop_user_id=$obj->lunchshop_user_id;
+                    $product_id = $obj->product_id;
+                    ?>
                     <div class="card-action">
+                        <p>予約受付日</p>
                         <p>
-                            <input type="checkbox" id="test1" />
-                            <label for="test1">１日</label>
-                            <input type="checkbox" id="test2" />
-                            <label for="test2">２日</label>
-                            <input type="checkbox" id="test3" />
-                            <label for="test3">３日</label>
-                            <input type="checkbox" id="test4" />
-                            <label for="test4">４日</label>
-                            <input type="checkbox" id="test5" />
-                            <label for="test5">５日</label>
-                            <input type="checkbox" id="test6" />
-                            <label for="test6">６日</label>
-                            <input type="checkbox" id="test7" />
-                            <label for="test7">７日</label>
+                        <?php
+                        for($m=0;$m<7;$m++){
+                            echo
+                            "<input type='checkbox' id='test"
+                            .$j.
+                            "' name='".$j."' value='".$product_id.",".$lunchshop_user_id.",".$date[$m]."'".$j."'>
+                            <label for='test"
+                            .$j.
+                            "'>"
+                            .$date[$m].
+                            "日</label>";
+                            $j++;
+                        }
+                        ?>
                         </p>
                     </div>
                 </div>
             </div>
-            ';
-            }
-            ?>
-            <button type="submit" id="yoyaku_btn" class="btn">確認する</button>
+            <?php endforeach; ?>
+            <button type="submit" id="yoyaku_btn" class="btn" >確認する</button>
+
 </form>
 </div>
 <style>

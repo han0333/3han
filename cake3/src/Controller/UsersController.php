@@ -168,7 +168,9 @@ class UsersController extends AppController{
         $this->viewBuilder()->setLayout('userLayout');
         //ヘッドライン
         $this->set("headline", "<h4>店舗一覧</h4>");
-
+        $this->Shoplists = TableRegistry::get('lunchshops');
+        $data=$this->Shoplists->find('all');
+        $this->set('result', $data);
     }
     //予約履歴
     public function rireki(){
@@ -204,6 +206,14 @@ class UsersController extends AppController{
         //ヘッドライン
         $this->set("headline", "<h4>弁当一覧</h4>");
 
+        $shop_id = $this->request->data('shop_id');
+
+        $this->products = TableRegistry::get('products');
+        $data=$this->products->find()
+        ->where(['lunchshop_user_id' => $shop_id])->all();
+        $this->set('data', $data);
+
+        $this->set('aaa',$this->Users->newEntity());
     }
     //弁当予約
     public function bentoComp(){
@@ -211,6 +221,28 @@ class UsersController extends AppController{
         //ヘッドライン
         $this->set("headline", "<h4></h4>");
 
+    }
+
+    //予約
+    public function yoyaku1(){
+        $this->viewBuilder()->setLayout('userLayout');
+        $this->users = TableRegistry::get('users');
+        $this->products = TableRegistry::get('products');
+        $posts = $this->request->data;
+        $this->set('posts',$posts);
+        $i = 0;
+            foreach($posts as $val){
+                $i++;
+                $pieces = explode(",", $val);
+                $b = $this->products->find()->where(['product_id'=>$pieces[0]])->all();
+                $this->set('result'.$i,$b);
+                $date = $pieces[2];
+                $this->set('date'.$i,$date);
+            }
+            $this->set('i',$i);
+        //ヘッドライン
+        $bento = array();
+        $this->set("headline", "<h4>弁当予約</h4>");
     }
 
 
