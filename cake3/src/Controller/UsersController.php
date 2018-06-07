@@ -30,7 +30,7 @@ class UsersController extends AppController{
         //ナビ項目セット
         $nav_list = array(
             "<li><a href=\"$url_c/select\">店舗一覧</a></li>",
-            "<li><a href=\"$url_c/yoyaku\">予約履歴</a></li>",
+            "<li><a href=\"$url_c/rireki\">予約履歴</a></li>",
             "<li><a href=\"$url_c/index\">ログアウト</a></li>"
         );
         $this->set("nav_list", $nav_list);
@@ -269,7 +269,7 @@ class UsersController extends AppController{
         }
         $this->set('i',$i);
 
-        return $this->resirect(['action'=>'select']);
+        return $this->redirect(['action'=>'select']);
     }
 
     //弁当キャンセル
@@ -283,6 +283,55 @@ class UsersController extends AppController{
 
         return $this->redirect(['action'=>'rireki']);
     }
+
+    //日付登録
+    /*public function date() {
+        $this->Dates = TableRegistry::get('Dates');
+
+        $dates = $this->Dates->find('all');
+        $this->set('dates',$dates);
+        //$this->set('entity',$this->dates->newEntity());
+
+        $day = Time::now('Asia/Tokyo');
+        $day = $day->modify('+59 days');
+        //echo $day;
+        $day2 = Time::now('Asia/Tokyo');
+        //$this->set('day',$day);
+
+        $sun = '日曜日'; $mon = '月曜日'; $tue = '火曜日'; $wed = '水曜日'; $thu = '木曜日'; $fri = '金曜日'; $sat = '土曜日';
+
+        $connection = ConnectionManager::get('default');
+        $j = 0;
+        for ($i=1;$i<=150;$i++){
+            $j++;
+            if ($j == 8) {
+                $j = 1;
+            }
+            $day = $day->modify('+1 days');
+            $day2 = $day;
+            $day2 = $day2->format('Y-m-d');
+            if ($j == 4){
+                $sql = "INSERT INTO dates VALUES ('$day2','$thu')";
+            } else if ($j == 5){
+                $sql = "INSERT INTO dates VALUES ('$day2','$fri')";
+            } else if ($j == 6){
+                $sql = "INSERT INTO dates VALUES ('$day2','$sat')";
+            } else if ($j == 7){
+                $sql = "INSERT INTO dates VALUES ('$day2','$sun')";
+            } else if ($j == 1){
+                $sql = "INSERT INTO dates VALUES ('$day2','$mon')";
+            } else if ($j == 2){
+                $sql = "INSERT INTO dates VALUES ('$day2','$tue')";
+            } else if ($j == 3) {
+                $sql = "INSERT INTO dates VALUES ('$day2','$wed')";
+            }
+
+            echo $sql,'<p>';
+            $connection = ConnectionManager::get('default');
+            $connection->execute($sql);
+        }
+
+    }*/
 
     public function beforeFilter(Event $event)
     {
