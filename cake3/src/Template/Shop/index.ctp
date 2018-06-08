@@ -69,6 +69,7 @@
     });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     echo '<canvas id="myChart"></canvas>';
     echo '<script>';
 
@@ -183,4 +184,33 @@
 }
 </script>-->
 =======
+>>>>>>> 17fb17aada2ca580ae1096baceae0329aecf20c9
+=======
+    new Chart(document.getElementById("myChart2"), {
+        type: "line",
+        data: {
+            labels: ["ハンバーグ弁当", "カツ丼", "牛丼"],
+            datasets: [{
+                data: [300,
+                    50, 100
+                ],
+                backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)", "rgb(255, 205, 86)"]
+            }]
+        }
+    });
+
+</script>
+
+
+<style>
+    .tab a {
+        color: rgba(238, 110, 115, 1) !important;
+    }
+
+    .tab a:hover {
+        color: rgba(238, 110, 115, 0.6) !important;
+    }
+
+</style>
+
 >>>>>>> 17fb17aada2ca580ae1096baceae0329aecf20c9
