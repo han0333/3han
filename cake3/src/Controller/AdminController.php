@@ -12,7 +12,6 @@ class AdminController extends AppController{
         $this->set("url", $url);
          
     }
-
     //ログイン
     public function index(){
     }
